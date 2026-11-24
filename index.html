@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#14532d">
+    <title>Geolocalización Consciente PWA</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" href="./icons/icon-192.png">
+    <link rel="apple-touch-icon" href="./icons/icon-192.png">
+</head>
+<body>
+    <header>
+        <h1>Reporte con Ubicación</h1>
+    </header>
+
+    <main>
+        <section class="card">
+            <h2>Ubicación del reporte</h2>
+            <button id="btn-adjuntar-ubicacion" type="button">Adjuntar mi ubicación</button>
+
+            <!-- pre-permiso: se muestra antes del dialogo nativo -->
+            <div id="aviso-ubicacion" class="aviso" hidden>
+                <p>Necesitamos tu ubicación aproximada para adjuntar las coordenadas al reporte técnico y calcular la sucursal más cercana.</p>
+                <p>La ubicación solo se usa en este reporte y no se comparte con nadie más.</p>
+                <button id="btn-confirmar-ubicacion" type="button">Compartir mi ubicación</button>
+            </div>
+
+            <p id="estado-ubicacion">Sin ubicación adjunta</p>
+
+            <div id="resultado-ubicacion" class="resultado" hidden>
+                <p><strong>Latitud:</strong> <span id="dato-latitud"></span></p>
+                <p><strong>Longitud:</strong> <span id="dato-longitud"></span></p>
+                <p><strong>Precisión:</strong> ± <span id="dato-precision"></span> m</p>
+                <p><strong>Hora de la lectura:</strong> <span id="dato-hora"></span></p>
+                <span id="etiqueta-calidad" class="etiqueta"></span>
+            </div>
+        </section>
+
+        <!-- plan b: si se niega el permiso o falla la lectura -->
+        <section id="plan-b" class="card" hidden>
+            <h2>Selecciona tu zona manualmente</h2>
+            <p id="ayuda-permiso" class="ayuda" hidden>
+                El permiso de ubicación está bloqueado. Para reactivarlo:
+                en Chrome toca el icono junto a la dirección → Permisos → Ubicación → Permitir;
+                en iPhone ve a Ajustes → Apps → Safari → Ubicación → Preguntar.
+            </p>
+            <select id="select-zona">
+                <option value="">-- Elige una zona --</option>
+                <option value="Cuernavaca">Cuernavaca</option>
+                <option value="Emiliano Zapata">Emiliano Zapata</option>
+                <option value="Jiutepec">Jiutepec</option>
+                <option value="Temixco">Temixco</option>
+                <option value="Xochitepec">Xochitepec</option>
+                <option value="Otra">Otra zona</option>
+            </select>
+            <button id="btn-guardar-zona" type="button">Usar esta zona</button>
+        </section>
+    </main>
+
+    <!-- geo-helper.js antes que app.js porque app.js usa sus funciones -->
+    <script src="./geo-helper.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
